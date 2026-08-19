@@ -3,5 +3,5 @@
 
 local Event = game:GetService("ReplicatedStorage").Remotes["Change Character"]
 Event:FireServer(
-    "Shuren"
+    "Alice"
 )
