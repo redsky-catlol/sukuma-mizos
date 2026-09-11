@@ -1,0 +1,173 @@
+--[[
+    UNLOCK GAMEPASS - SUKUNA & GOJO
+    Game ID: 12523561556
+    by Redsky
+]]
+
+local player = game.Players.LocalPlayer
+
+-- ========== FIND & SET VALUES ==========
+local function unlockCharacters()
+    local ownedCharacters = player:FindFirstChild("OwnedCharacters")
+    local foundSukuna = false
+    local foundGojo = false
+    
+    -- Cek OwnedCharacters
+    if ownedCharacters then
+        -- Sukuna
+        local sukuna = ownedCharacters:FindFirstChild("Sukuna")
+        if sukuna then
+            if sukuna:IsA("BoolValue") then
+                sukuna.Value = true
+            elseif sukuna:IsA("NumberValue") then
+                sukuna.Value = 1
+            elseif sukuna:IsA("StringValue") then
+                sukuna.Value = "true"
+            end
+            foundSukuna = true
+            print("[Redsky] Sukuna unlocked!")
+        end
+        
+        -- Gojo
+        local gojo = ownedCharacters:FindFirstChild("Gojo")
+        if gojo then
+            if gojo:IsA("BoolValue") then
+                gojo.Value = true
+            elseif gojo:IsA("NumberValue") then
+                gojo.Value = 1
+            elseif gojo:IsA("StringValue") then
+                gojo.Value = "true"
+            end
+            foundGojo = true
+            print("[Redsky] Gojo unlocked!")
+        end
+    else
+        warn("[Redsky] OwnedCharacters not found!")
+    end
+    
+    -- Jika tidak ditemukan, cari di seluruh player
+    if not foundSukuna or not foundGojo then
+        for _, obj in pairs(player:GetDescendants()) do
+            if obj.Name == "Sukuna" and not foundSukuna then
+                if obj:IsA("BoolValue") then
+                    obj.Value = true
+                    foundSukuna = true
+                elseif obj:IsA("NumberValue") then
+                    obj.Value = 1
+                    foundSukuna = true
+                elseif obj:IsA("StringValue") then
+                    obj.Value = "true"
+                    foundSukuna = true
+                end
+            end
+            if obj.Name == "Gojo" and not foundGojo then
+                if obj:IsA("BoolValue") then
+                    obj.Value = true
+                    foundGojo = true
+                elseif obj:IsA("NumberValue") then
+                    obj.Value = 1
+                    foundGojo = true
+                elseif obj:IsA("StringValue") then
+                    obj.Value = "true"
+                    foundGojo = true
+                end
+            end
+        end
+    end
+    
+    -- Tampilkan notifikasi jika berhasil
+    if foundSukuna and foundGojo then
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "⚡ Gamepass Unlocker",
+            Text = "Unlocked Strongest Of History and Strongest Of Today!",
+            Duration = 5
+        })
+        print("[Redsky] ========================================")
+        print("[Redsky] Unlocked Strongest Of History and Strongest Of Today!")
+        print("[Redsky] ========================================")
+    elseif foundSukuna then
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "⚡ Gamepass Unlocker",
+            Text = "Unlocked Strongest Of History!",
+            Duration = 4
+        })
+    elseif foundGojo then
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "⚡ Gamepass Unlocker",
+            Text = "Unlocked Strongest Of Today!",
+            Duration = 4
+        })
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "⚡ Gamepass Unlocker",
+            Text = "✗ Characters not found!",
+            Duration = 3
+        })
+    end
+end
+
+-- ========== EXECUTE ==========
+unlockCharacters()
+
+-- Retry setiap 0.5 detik jika belum berhasil
+local attempts = 0
+local maxAttempts = 10
+
+spawn(function()
+    while attempts < maxAttempts do
+        attempts = attempts + 1
+        wait(0.5)
+        
+        local ownedCharacters = player:FindFirstChild("OwnedCharacters")
+        if ownedCharacters then
+            local sukuna = ownedCharacters:FindFirstChild("Sukuna")
+            local gojo = ownedCharacters:FindFirstChild("Gojo")
+            
+            local sukunaUnlocked = false
+            local gojoUnlocked = false
+            
+            if sukuna then
+                if sukuna:IsA("BoolValue") and sukuna.Value == true then
+                    sukunaUnlocked = true
+                end
+            end
+            
+            if gojo then
+                if gojo:IsA("BoolValue") and gojo.Value == true then
+                    gojoUnlocked = true
+                end
+            end
+            
+            if not sukunaUnlocked and sukuna then
+                if sukuna:IsA("BoolValue") then
+                    sukuna.Value = true
+                elseif sukuna:IsA("NumberValue") then
+                    sukuna.Value = 1
+                elseif sukuna:IsA("StringValue") then
+                    sukuna.Value = "true"
+                end
+            end
+            
+            if not gojoUnlocked and gojo then
+                if gojo:IsA("BoolValue") then
+                    gojo.Value = true
+                elseif gojo:IsA("NumberValue") then
+                    gojo.Value = 1
+                elseif gojo:IsA("StringValue") then
+                    gojo.Value = "true"
+                end
+            end
+            
+            if sukunaUnlocked and gojoUnlocked then
+                break
+            end
+        end
+    end
+end)
+
+print("[Redsky] ========================================")
+print("[Redsky] UNLOCK GAMEPASS LOADED")
+print("[Redsky] Game ID: 12523561556")
+print("[Redsky] Unlocking: Sukuna & Gojo")
+print("[Redsky] Unlocked Strongest Of History and Strongest Of Today!")
+print("[Redsky] ========================================")
