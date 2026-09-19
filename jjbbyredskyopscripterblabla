@@ -125,6 +125,8 @@ task.spawn(function()
                                 if child.Text ~= "" then
                                     child.Text = charData.displayName
                                     child.TextColor3 = Color3.fromRGB(255, 247, 0)
+                                    child.TextSize = 16
+                                    child.Font = Enum.Font.GothamBold
                                 end
                             end
                             
