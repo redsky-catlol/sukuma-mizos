@@ -1,0 +1,172 @@
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "CloneBypassTerm"
+local success = pcall(function() gui.Parent = CoreGui end)
+if not success then gui.Parent = player:WaitForChild("PlayerGui") end
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 500, 0, 350)
+frame.Position = UDim2.new(0, 20, 0.5, -175)
+frame.BackgroundTransparency = 1
+frame.Parent = gui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.TextXAlignment = Enum.TextXAlignment.Left
+textLabel.TextYAlignment = Enum.TextYAlignment.Top
+textLabel.Font = Enum.Font.Code
+textLabel.TextSize = 14
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+textLabel.Text = ""
+textLabel.Parent = frame
+
+local logLines = {
+    "> [INIT] Booting override protocol...",
+    "> [DELTA_ENV] Delta API detected. Elevating privileges...",
+    "> [SYSTEM] Thread spawned. Bypassing client-side security...",
+    "> [NETWORK] Intercepting ReplicatedStorage bridges...",
+    "> [SCAN] Enumerating PlayerGui instances...",
+    "> [UI_HOOK] Target UI identified: TopbarStandardClipped",
+    "> [UI_HOOK] Accessing ClippedContainer -> DropdownScroller...",
+    "> [EXTRACT] Loading Custom Asset Icons...",
+    "> [MATCH] Applied Custom Icon IDs (Gojo, Mahoraga, Sukuna, Yuji)...",
+    "> [CLONE] Initializing widget duplication engine...",
+    "> [BUILD] Constructing widgets for PS+ Characters...",
+    "> [PATCH] Applying RGB text formatting...",
+    "> [PATCH] Overriding image assets with custom IDs...",
+    "> [INJECT] Hooking RemoteEvent (ffrostflame_bridgenet2@0.5.6)...",
+    "> [ENCODE] Generating payload with bytecode (\x0F)...",
+    "> [STATUS] Buttons successfully weaponized.",
+    "> [CLEANUP] Wiping console logs and memory traces...",
+    "> [SUCCESS] Operation complete. Click to transform!"
+}
+
+local currentLog = ""
+for _, line in ipairs(logLines) do
+    currentLog = currentLog .. "\n"
+    for i = 1, #line do
+        textLabel.Text = currentLog .. string.sub(line, 1, i)
+        task.wait(0.005)
+    end
+    currentLog = currentLog .. line
+    task.wait(0.1)
+end
+task.wait(1)
+gui:Destroy()
+
+local targetCharacters = {
+    {id = "MahoragaTest", displayName = "Mahoraga Transform", icon = "rbxassetid://117105177013178"},
+    {id = "Yuuji", displayName = "(OLD) The Vessel", icon = "rbxassetid://98935402883487"},
+    {id = "SeniorGojo", displayName = "Super Senior Gojo", icon = "rbxassetid://137673628862659"},
+    {id = "SeniorThukuna", displayName = "Senior Thukuna", icon = "rbxassetid://108254751519393"}
+}
+
+local function getScroller()
+    local playerGui = player:FindFirstChild("PlayerGui")
+    if not playerGui then return nil end
+    
+    local topbarClipped = playerGui:FindFirstChild("TopbarStandardClipped")
+    if topbarClipped then
+        for _, desc in ipairs(topbarClipped:GetDescendants()) do
+            if desc.Name == "DropdownScroller" then
+                return desc
+            end
+        end
+    end
+    return nil
+end
+
+local function getOriginalIcon(scroller, displayName)
+    for _, widget in ipairs(scroller:GetChildren()) do
+        if widget.Name == "Widget" or widget.Name:match("Widget") then
+            local isTarget = false
+            local foundIcon = nil
+            
+            for _, desc in ipairs(widget:GetDescendants()) do
+                if (desc:IsA("TextLabel") or desc:IsA("TextButton")) and desc.Text == displayName then
+                    isTarget = true
+                end
+                if (desc:IsA("ImageLabel") or desc:IsA("ImageButton")) and desc.Image ~= "" then
+                    foundIcon = desc.Image
+                end
+            end
+            
+            if isTarget and foundIcon then
+                return foundIcon
+            end
+        end
+    end
+    return nil
+end
+
+task.spawn(function()
+    while task.wait(1) do
+        local scroller = getScroller()
+        if scroller then
+            local templateWidget = scroller:FindFirstChild("Widget")
+            
+            if templateWidget then
+                for _, charData in ipairs(targetCharacters) do
+                    local customName = "BypassWidget_" .. charData.id
+                    
+                    if not scroller:FindFirstChild(customName) then
+                        local clone = templateWidget:Clone()
+                        clone.Name = customName
+                        clone.Visible = true
+                        
+                        local oriIcon = getOriginalIcon(scroller, charData.displayName)
+                        
+                        for _, child in ipairs(clone:GetDescendants()) do
+                            if child:IsA("TextLabel") or child:IsA("TextButton") then
+                                if child.Text ~= "" then
+                                    child.Text = charData.displayName
+                                    child.TextColor3 = Color3.fromRGB(255, 247, 0)
+                                end
+                            end
+                            
+                            if (child:IsA("ImageLabel") or child:IsA("ImageButton")) then
+                                if charData.icon then
+                                    child.Image = charData.icon
+                                elseif oriIcon then
+                                    child.Image = oriIcon
+                                end
+                            end
+                        end
+                        
+                        local button = clone:FindFirstChildWhichIsA("GuiButton", true)
+                        if not button and clone:IsA("GuiButton") then
+                            button = clone
+                        end
+                        
+                        if button then
+                            button.MouseButton1Click:Connect(function()
+                                pcall(function()
+                                    local RS = game:GetService(string.char(82, 101, 112, 108, 105, 99, 97, 116, 101, 100, 83, 116, 111, 114, 97, 103, 101))
+                                    local Event = RS:FindFirstChild(string.char(102, 102, 114, 111, 115, 116, 102, 108, 97, 109, 101, 95, 98, 114, 105, 100, 103, 101, 110, 101, 116, 50, 64, 48, 46, 53, 46, 54)):FindFirstChild(string.char(100, 97, 116, 97, 82, 101, 109, 111, 116, 101, 69, 118, 101, 110, 116))
+                                    
+                                    if Event then
+                                        Event:FireServer(
+                                            {
+                                                {
+                                                    [string.char(78, 97, 109, 101)] = charData.id,
+                                                    [string.char(84, 121, 112, 101)] = string.char(67, 104, 97, 110, 103, 101)
+                                                },
+                                                string.char(15)
+                                            }
+                                        )
+                                    end
+                                end)
+                            end)
+                        end
+                        
+                        clone.Parent = scroller
+                    end
+                end
+            end
+        end
+    end
+end)
