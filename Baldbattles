@@ -1,0 +1,138 @@
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+
+local window = DrRayLibrary:Load("Copy Tsb Game", "Default")
+
+local tab = DrRayLibrary.newTab("PS+ Public Server", "ImageIdHere")
+
+tab.newButton("Dual Moveset", "on", function()
+  local args = {
+    [1] = {
+        ["result"] = true,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Dual Moveset"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Dual Moveset", "off", function()
+local args = {
+    [1] = {
+        ["result"] = false,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Dual Moveset"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Give Awakening", "PS+", function()
+  local args = {
+    [1] = {
+        ["result"] = true,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Give Awakening"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Activate Awakening", "PS+", function()
+  local args = {
+    [1] = {
+        ["result"] = true,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Activate Awakening"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Shutdown Server", "PS+", function()
+  local args = {
+    [1] = {
+        ["result"] = true,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Shutdown Server"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Bring", "PS+", function()
+  local args = {
+    [1] = {
+        ["result"] = false,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Bring"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("No Cooldown", "on", function()
+  local args = {
+    [1] = {
+        ["result"] = true,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "No Cooldown"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("No Cooldown", "off", function()
+  local args = {
+    [1] = {
+        ["result"] = false,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "No Cooldown"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Respawn", "PS+", function()
+  local args = {
+    [1] = {
+        ["result"] = false,
+        ["Goal"] = "VIP Server Power",
+        ["power"] = "Respawn"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+
+local tab = DrRayLibrary.newTab("Admin Character", "ImageIdHere")
+
+tab.newButton("KJ", "Working", function()
+  local args = {
+    [1] = {
+        ["Goal"] = "Change Character",
+        ["Character"] = "KJ"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Cyborg", "Working", function()
+  local args = {
+    [1] = {
+        ["Goal"] = "Change Character",
+        ["Character"] = "Cyborg"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
+tab.newButton("Sorcerer", "Working", function()
+  local args = {
+    [1] = {
+        ["Goal"] = "Change Character",
+        ["Character"] = "Sorcerer"
+    }
+}
+
+game:GetService("Players").LocalPlayer.Character.Communicate:FireServer(unpack(args))
+end)
